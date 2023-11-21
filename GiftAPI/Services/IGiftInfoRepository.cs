@@ -14,6 +14,11 @@ namespace GiftAPI.Services
 
         Task<bool> SaveAsync();
 
+        Task AddGiftAsync(GiftInfo gift);
+
+        Task UpdateGiftAsync(GiftInfo gift);
+
+        Task DeleteGiftAsync(int giftId);
         Task<bool> GiftExistsAsync(int giftId);
 
         Task<IEnumerable<GiftInfo>> GetGiftInfoesAsync();

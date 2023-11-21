@@ -21,5 +21,8 @@ public partial class GiftInfo
 
     public string? GiftUrl { get; set; }
 
-    public virtual ICollection<UserInfo> UserInfos { get; set; } = new List<UserInfo>();
+      public virtual ICollection<UserInfo> UserInfos { get; set; } = new List<UserInfo>();
+
+    public int? FavoriteUserId { get; set; }
+    public UserInfo FavoriteUser { get; set; }
 }

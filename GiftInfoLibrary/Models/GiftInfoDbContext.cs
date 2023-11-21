@@ -51,9 +51,16 @@ public partial class GiftInfoDbContext : DbContext
             entity.Property(e => e.UserName).HasMaxLength(100);
             entity.Property(e => e.UserPass).HasMaxLength(100);
 
-            entity.HasOne(d => d.FavoriteGift).WithMany(p => p.UserInfos)
-                .HasForeignKey(d => d.FavoriteGiftId)
-                .HasConstraintName("FK__UserInfo__Favori__34C8D9D1");
+            modelBuilder.Entity<GiftInfo>()
+              .HasOne(g => g.FavoriteUser)
+              .WithMany(u => u.FavoriteGifts)
+              .HasForeignKey(g => g.FavoriteUserId)
+              .OnDelete(DeleteBehavior.SetNull);
+
+
+            //entity.HasOne(d => d.FavoriteGift).WithMany(p => p.UserInfos)
+            //    .HasForeignKey(d => d.FavoriteGiftId)
+            //    .HasConstraintName("FK__UserInfo__Favori__34C8D9D1");
         });
 
         OnModelCreatingPartial(modelBuilder);

@@ -13,9 +13,10 @@ public partial class UserInfo
 
     public string UserPass { get; set; } = null!;
 
+    // referencing the favourite gift
     public int? FavoriteGiftId { get; set; }
-
     public virtual GiftInfo FavoriteGift { get; set; }
 
-    public virtual ICollection<GiftInfo> FavoriteGifts { get; set; } = new List<GiftInfo>();
+    //collection of fave gifts
+    public  ICollection<GiftInfo> FavoriteGifts { get; set; } = new List<GiftInfo>();
 }

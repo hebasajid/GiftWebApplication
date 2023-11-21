@@ -14,6 +14,36 @@ namespace GiftInfoAPI.Services
             _context = context;
         }
 
+        public async Task AddGiftAsync(GiftInfo gift)
+        {
+            await _context.GiftInfos.AddAsync(gift);
+        }
+
+        public async Task UpdateGiftAsync(GiftInfo gift)
+        {
+            _context.Entry(gift).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<GiftInfo>> GetGiftInfoesAsync()
+        {
+            return await _context.GiftInfos.ToListAsync();
+        }
+
+
+        public async Task DeleteGiftAsync(int giftId)
+        {
+            var giftToDelete = await _context.GiftInfos.FindAsync(giftId);
+
+            if (giftToDelete != null)
+            {
+                _context.GiftInfos.Remove(giftToDelete);
+                await _context.SaveChangesAsync();
+            }
+        }
+
+
+
         public async Task<bool> GiftExistsAsync(int giftId)
         {
             return await _context.GiftInfos.AnyAsync<GiftInfo>(g => g.GiftId == giftId);
@@ -94,10 +124,10 @@ namespace GiftInfoAPI.Services
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<IEnumerable<GiftInfo>> GetGiftInfoesAsync()
-        {
-            return await _context.GiftInfos.ToListAsync();
-        }
+        //public async Task<IEnumerable<GiftInfo>> GetGiftInfoesAsync()
+        //{
+        //    return await _context.GiftInfos.ToListAsync();
+        //}
 
         public async Task<GiftInfo> GetGiftByIdAsync(int giftId, bool includeUserInfo)
         {
@@ -136,10 +166,10 @@ namespace GiftInfoAPI.Services
         //    throw new NotImplementedException();
         //}
 
-        Task<IEnumerable<GiftInfo>> IGiftInfoRepository.GetGiftInfoesAsync()
-        {
-            throw new NotImplementedException();
-        }
+        //Task<IEnumerable<GiftInfo>> IGiftInfoRepository.GetGiftInfoesAsync()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         Task<GiftInfo> IGiftInfoRepository.GetGiftByIdAsync(int giftId, bool includeUserInfo)
         {
@@ -151,7 +181,7 @@ namespace GiftInfoAPI.Services
         //    throw new NotImplementedException();
         //}
 
-        
+
 
         //Task<IEnumerable<GiftInfo>> IGiftInfoRepository.GetGiftInfoesAsync()
         //{
@@ -165,11 +195,6 @@ namespace GiftInfoAPI.Services
 
 
 
-
-
-
-
-        //1:04:43 L9  -finish repository then build controller. then go on L10, add stuff then send to syeda.
 
 
 
