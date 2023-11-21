@@ -1,3 +1,8 @@
+using GiftAPI.Services;
+using GiftInfoAPI.Services;
+using GiftInfoLibrary.Models;
+using Microsoft.EntityFrameworkCore;
+
 namespace GiftAPI
 {
     public class Program
@@ -13,7 +18,10 @@ namespace GiftAPI
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddDbContext<GiftInfoDbContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("Connection2GiftInfoDB")));
 
+            builder.Services.AddScoped<IGiftInfoRepository, GiftInfoRepository>();
 
             var app = builder.Build();
 
